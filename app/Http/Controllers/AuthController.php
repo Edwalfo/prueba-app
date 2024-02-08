@@ -50,32 +50,32 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $rules = [
-            'email' => 'required|string|email|max:100',
-            'password' => 'required|string'
-        ];
+        // $rules = [
+        //     'email' => 'required|string|email|max:100',
+        //     'password' => 'required|string'
+        // ];
 
-        $validator = Validator::make($request->input(), $rules);
+        // $validator = Validator::make($request->input(), $rules);
 
-        if ($validator->fails()) {
-            return response()->json(
-                [
-                    'status' => false,
-                    'errors' => $validator->errors()->all()
-                ],
-                400
-            );
-        }
+        // if ($validator->fails()) {
+        //     return response()->json(
+        //         [
+        //             'status' => false,
+        //             'errors' => $validator->errors()->all()
+        //         ],
+        //         400
+        //     );
+        // }
 
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(
-                [
-                    'status' => false,
-                    'errors' => ['Unauthorized']
-                ],
-                401
-            );
-        }
+        // if (!Auth::attempt($request->only('email', 'password'))) {
+        //     return response()->json(
+        //         [
+        //             'status' => false,
+        //             'errors' => ['Unauthorized']
+        //         ],
+        //         401
+        //     );
+        // }
         $user = User::where('email', $request->email)->first();
         $userWithToken = $user->toArray();
         $userWithToken['token'] = $user->createToken('API-TOKEN')->plainTextToken;
